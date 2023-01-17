@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.9.1 on win32)" generated="20230117 12:10:24.498" rpa="false" schemaversion="3">
+<suite id="s1" name="Program Delete 001" source="C:\Users\vanis\PycharmProjects\LMSRobotAPI\Program_Delete_001.robot">
+<test id="s1-t1" name="Delete_ProgramValid" line="11">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<arg>verify=true</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230117 12:10:24.647" level="INFO">Creating Session using : alias=mysession, url=https://lms-backend-service.herokuapp.com/lms, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230117 12:10:24.647" endtime="20230117 12:10:24.647"/>
+</kw>
+<kw name="Delete Request" library="RequestsLibrary">
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>/deletebyprogid/${programId}</arg>
+<doc>*DEPRECATED* Please use `DELETE On Session` instead.</doc>
+<msg timestamp="20230117 12:10:24.648" level="WARN">Keyword 'RequestsLibrary.Delete Request' is deprecated. Please use `DELETE On Session` instead.</msg>
+<msg timestamp="20230117 12:10:24.834" level="INFO">DELETE Request : url=https://lms-backend-service.herokuapp.com/lms/deletebyprogid/9965 
+ path_url=/lms/deletebyprogid/9965 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20230117 12:10:24.834" level="INFO">DELETE Response : url=https://lms-backend-service.herokuapp.com/lms/deletebyprogid/9965 
+ status=400, reason= 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Tue, 17 Jan 2023 17:10:26 GMT', 'Via': '1.1 vegur'} 
+ body={"errorCode":"ENTITY_DOES_NOT_EXIST","errorMessage":"no record found with programId"} 
+ </msg>
+<msg timestamp="20230117 12:10:24.835" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20230117 12:10:24.648" endtime="20230117 12:10:24.835"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${body}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230117 12:10:24.838" level="INFO">${body} = {"errorCode":"ENTITY_DOES_NOT_EXIST","errorMessage":"no record found with programId"}</msg>
+<status status="PASS" starttime="20230117 12:10:24.836" endtime="20230117 12:10:24.838"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${body}</arg>
+<arg>ENTITY_DOES_NOT_EXIST</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230117 12:10:24.838" endtime="20230117 12:10:24.839"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${contentTypeValue}</var>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20230117 12:10:24.840" level="INFO">${contentTypeValue} = application/json</msg>
+<status status="PASS" starttime="20230117 12:10:24.839" endtime="20230117 12:10:24.841"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${contentTypeValue}</arg>
+<arg>application/json</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230117 12:10:24.841" endtime="20230117 12:10:24.842"/>
+</kw>
+<status status="PASS" starttime="20230117 12:10:24.646" endtime="20230117 12:10:24.843"/>
+</test>
+<status status="PASS" starttime="20230117 12:10:24.500" endtime="20230117 12:10:24.846"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Program Delete 001">Program Delete 001</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230117 12:10:24.648" level="WARN">Keyword 'RequestsLibrary.Delete Request' is deprecated. Please use `DELETE On Session` instead.</msg>
+</errors>
+</robot>
